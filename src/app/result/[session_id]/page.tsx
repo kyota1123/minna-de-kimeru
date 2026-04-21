@@ -23,6 +23,19 @@ export default async function ResultPage({ params }: { params: Promise<{ session
 
   if (!session) redirect('/');
 
+  // Access control: if not published, only organizer can view
+  if (!session.result_published) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect('/');
+    const { data: organizer } = await supabase
+      .from('organizers')
+      .select('id')
+      .eq('google_id', user.id)
+      .eq('id', session.organizer_id)
+      .single();
+    if (!organizer) redirect('/');
+  }
+
   const { data: artworks } = await supabase
     .from('artworks')
     .select('*')
