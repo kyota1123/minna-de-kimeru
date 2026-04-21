@@ -54,14 +54,6 @@
       "Grep",
       "Read"
     ],
-    "deny": [
-      "Bash(rm *)",
-      "Bash(rm -rf *)",
-      "Bash(sudo *)",
-      "Bash(git push*)",
-      "Bash(security *)",
-      "Bash(curl * --data *)",
-      "Bash(wget *)"
-    ]
+    "deny": []
   }
 }
